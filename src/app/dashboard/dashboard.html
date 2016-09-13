@@ -1,0 +1,38 @@
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Classroom Manager</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li class="active"><a ui-sref="dashboard">Dashboard</a></li>
+            <li><a ui-sref="student.grid">Students</a></li>
+            <li><a ui-sref="project.grid">Projects</a></li>
+        </ul>
+    </div>
+    </nav>
+    <div class="container">
+    <div class="col-md-4 col-sm-6">
+        <div class="panel panel-default custom">
+        <div class="panel-heading detailHeadingOne">Students</div>
+            <div class="panel-body text-center customCol">
+                <p class="lengthNumber">{{dashboard.students.length}}</p>
+            </div>
+        </div>
+    </div>
+        <div class="col-md-4 col-sm-6">
+        <div class="panel panel-default custom">
+        <div class="panel-heading detailHeadingTwo">Projects</div>
+            <div class="panel-body text-center customCol">
+                <p class="lengthNumber">{{dashboard.projects.length}}</p>
+            </div>
+        </div>
+    </div>
+        <div class="col-md-4 col-sm-6">
+        <div class="panel panel-default custom">
+        <div class="panel-heading detailHeadingThree">Assignments</div>
+            <div class="panel-body text-center customCol">
+                <p class="lengthNumber">{{dashboard.assignments.length}}</p>
+            </div>
+        </div>
+    </div> 
+    </div>

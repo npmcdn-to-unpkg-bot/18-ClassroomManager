@@ -1,0 +1,98 @@
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Classroom Manager</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li><a ui-sref="dashboard">Dashboard</a></li>
+            <li class="active"><a ui-sref="student.grid">Students</a></li>
+            <li><a ui-sref="project.grid">Projects</a></li>
+        </ul>
+    </div>
+</nav>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-5">
+            <div class="panel panel-default">
+                <div class="panel-heading custom-panel">Assign a project</div>
+                <div class="panel-body custom-size">
+                    <br>
+                    <br>
+                    <label>Select a project</label>
+                    <br>
+                    <select id="selectBox" ng-init="studentDetail.selectedProject = studentDetail.projects[0]" ng-model="studentDetail.selectedProject" ng-options="option.name for option in studentDetail.projects">
+                    </select>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <button type="submit" ng-click="studentDetail.addAssignment()" href="" class="btn btn-primary btn-block detailBtn">add assignment</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-7">
+            <div class="panel panel-default">
+                <div class="panel-heading custom-panel">Student Info</div>
+                <div class="panel-body">
+                    <div class="col-md-6">
+                        <label>First Name</label>
+                        <br>
+                        <input class="infoBox" type="text" ng-model="studentDetail.student.firstName">
+                        <br>
+                        <br>
+                        <label>Email Address</label>
+                        <br>
+                        <input class="infoBox" type="text" ng-model="studentDetail.student.emailAddress">
+                        <br>
+                        <br>
+                    </div>
+                    <div class="col-md-6">
+                        <label>Last Name</label>
+                        <br>
+                        <input class="infoBox" type="text" ng-model="studentDetail.student.lastName">
+                        <br>
+                        <br>
+                        <label>Telephone</label>
+                        <br>
+                        <input class="infoBox" type="text" ng-model="studentDetail.student.telephone">
+                    </div>
+                    <button type="submit" ng-click="studentDetail.editStudent(studentDetail.student)" href="" class="btn btn-primary btn-block detailBtn">update student info</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-5">
+            <p class="nameTitle">Assignment</p>
+        </div>
+        <div class="col-sm-7">
+            <p class="assignTitle">Grade</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="yellowBackground">
+                <table class="table table-striped">
+                    <tr ng-repeat="theAssignment in studentDetail.student.assignments | orderBy: 'project.name'">
+                        <td class="col-sm-5">
+                            <p>{{theAssignment.project.name}}</p>
+                        </td>
+                        <td class="col-sm-3">
+                            <p class="keepInline assignNumber" id="theNewTask" ng-hide="editing">{{theAssignment.grade}}</p>
+                            <input class="keepInline textBox" ng-blur="studentDetail.editAssignment(theAssignment.studentId, theAssignment.projectId, theAssignment); editing = false;" ng-show="editing" ng-model="theAssignment.grade" type="text">
+                        </td>
+                        <td class="col-sm-4">
+                            <a ng-click="studentDetail.deleteAssignment(theAssignment)" href=""><span title="delete" class="delete glyphicon glyphicon-remove"></span></a>
+                            <span class="keepInline" ng-hide="editing"><a ng-click="editing = !editing" href=""><span title="edit grade" class="pencil glyphicon glyphicon-pencil"></span></a>
+                            </span>
+                            <span class="keepInline" ng-show="editing"><a ng-click="studentDetail.editAssignment(theAssignment.studentId, theAssignment.projectId, theAssignment); editing = !editing" href=""><span title="edit" class="pencil glyphicon glyphicon-pencil"></span></a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,71 @@
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Classroom Manager</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li><a ui-sref="dashboard">Dashboard</a></li>
+            <li><a ui-sref="student.grid">Students</a></li>
+            <li class="active"><a ui-sref="project.grid">Projects</a></li>
+        </ul>
+    </div>
+</nav>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <button type="button" class="btn btn-info btn-lg addNew" data-toggle="modal" data-target="#myModal">+ add project</button><br><br>
+        </div>
+    </div>
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Add a Project</h4>
+                </div>
+                <div class="modal-body">
+                    <label>Name</label>
+                    <br>
+                    <input class="form-control" type="text" ng-model="projectGrid.name">
+                    <br>
+                    <label>Description</label>
+                    <br>
+                    <textarea class="form-control" ng-model="projectGrid.description"></textarea>
+                    <br>
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" ng-click="projectGrid.addProject()" data-dismiss="modal" class="btn btn-primary modalButton">Add Project</button>
+                </div>
+            </div>
+        </div>
+    </div>
+        <div class="row">
+        <div class="col-sm-5">
+            <p class="nameTitle">Student Name</p>
+        </div>
+        <div class="col-sm-7">
+            <p class="assignTitle">Assignments</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="yellowBackground">
+                <table class="table table-striped">
+                    <tr ng-repeat="theProject in projectGrid.projects | orderBy: 'name'">
+                        <td class="col-sm-5">
+                            <p class="theName">{{theProject.name}}</p>
+                        </td>
+                        <td class="col-sm-3"><p class="assignNumber">{{theProject.assignments.length}}</p>
+                        </td>
+                        <td>
+                            <a ng-click="projectGrid.deleteProject(theProject)" href=""><span title="delete" class="delete glyphicon glyphicon-remove"></span></a>
+                            <a ui-sref="project.detail({projectId: theProject.projectId })"><span title="edit" class="pencil glyphicon glyphicon-pencil"></span></a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    </div>

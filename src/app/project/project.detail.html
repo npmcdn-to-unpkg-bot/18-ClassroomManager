@@ -1,0 +1,84 @@
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Classroom Manager</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li><a ui-sref="dashboard">Dashboard</a></li>
+            <li><a ui-sref="student.grid">Students</a></li>
+            <li class="active"><a ui-sref="project.grid">Projects</a></li>
+        </ul>
+    </div>
+</nav>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-5">
+            <div class="panel panel-default">
+                <div class="panel-heading custom-panel">Assign this project</div>
+                <div class="panel-body detail-size">
+                    <label>Select a student</label>
+                    <br>
+                    <select id="selectBox" ng-init="projectDetail.selectedStudent = projectDetail.students[0]" ng-model="projectDetail.selectedStudent" ng-options="(option.lastName + ', ' + option.firstName) for option in projectDetail.students | orderBy: 'lastName'">
+                    </select>
+                    <br>
+                    <br>
+                    <button type="submit" ng-click="projectDetail.addAssignment()" href="" class="btn btn-primary btn-block detailBtn">assign</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-7">
+            <div class="panel panel-default">
+                <div class="panel-heading custom-panel">Project Info</div>
+                <div class="panel-body">
+                    <div class="col-sm-5">
+                        <label>Name</label>
+                        <br>
+                        <input class="infoBox" type="text" ng-model="projectDetail.project.name">
+                    </div>
+                    <div class="col-sm-7">
+                        <label>Description</label>
+                        <br>
+                        <textarea class="form-control textArea" ng-model="projectDetail.project.description"></textarea>
+                    </div>
+                    <br>
+                    <br>
+                    <button type="submit" ng-click="projectDetail.editProject(projectDetail.project)" href="" class="btn btn-primary btn-block detailBtn">update project info</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-5">
+            <p class="nameTitle">Student</p>
+        </div>
+        <div class="col-sm-7">
+            <p class="assignTitle">Grade</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="yellowBackground">
+                <table class="table table-striped">
+                    <tr ng-repeat="theAssignment in projectDetail.project.assignments | orderBy: 'student.lastName'">
+                        <td class="col-sm-5">
+                            <p>{{theAssignment.student.lastName}}, {{theAssignment.student.firstName}}</p>
+                        </td>
+                        <td class="col-sm-3">
+                            <p class="keepInline assignNumber" id="theNewTask" ng-hide="editing">{{theAssignment.grade}}</p>
+                            <input class="keepInline textBox" ng-blur="projectDetail.editAssignment(theAssignment.studentId, theAssignment.projectId, theAssignment); editing = false;" ng-show="editing" ng-model="theAssignment.grade" type="text">
+                        </td>
+                        <td>
+                            <a ng-click="projectDetail.deleteAssignment(theAssignment)" href=""><span title="delete" class="delete glyphicon glyphicon-remove"></span></a>
+                            <span class="keepInline" ng-hide="editing"><a ng-click="editing = !editing" href=""><span title="edit grade" class="pencil glyphicon glyphicon-pencil"></span></a>
+                            </span>
+                            <span class="keepInline" ng-show="editing"><a ng-click="projectDetail.editAssignment(theAssignment.studentId, theAssignment.projectId, theAssignment); editing = !editing" href=""><span title="edit" class="pencil glyphicon glyphicon-pencil"></span></a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
